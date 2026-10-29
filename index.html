@@ -1,0 +1,531 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<meta name="theme-color" content="#1A6AFF">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Training">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" href="icon-192.png">
+<title>Training · Therapie &amp; Training</title>
+<style>
+:root { --p:#1A6AFF; --p2:#39618E; --d:#154073; --hell:#EBF3FF; --t:#111; --t2:#555; --l:#dfe4ec; --bg:#fff; --bg2:#f5f7fa; --ok:#1f9d55; --warn:#c0392b; }
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg2); color: var(--t); font: 16px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; }
+main { max-width: 720px; margin: 0 auto; padding: 0 16px 64px; }
+header.kopf { background: var(--p); color: #fff; padding: calc(14px + env(safe-area-inset-top)) 16px 16px; }
+header.kopf .innen { max-width: 720px; margin: 0 auto; display: flex; gap: 12px; align-items: center; }
+header.kopf img { width: 34px; height: 34px; background: #fff; border-radius: 8px; padding: 4px; }
+header.kopf .praxis { font-size: 13px; opacity: .85; }
+header.kopf h1 { margin: 2px 0 0; font-size: 20px; line-height: 1.2; }
+header.kopf .fuer { font-size: 13px; opacity: .85; margin-top: 2px; }
+.karte { background: var(--bg); border: 1px solid var(--l); border-radius: 12px; padding: 12px 14px; margin: 12px 0; }
+.banner { background: var(--hell); border: 1px solid var(--p); border-radius: 12px; padding: 12px 14px; margin: 12px 0; font-size: 15px; }
+.banner.warn { background: #fdf0f0; border-color: var(--warn); }
+.banner b { display: block; margin-bottom: 4px; }
+.reiter { display: flex; gap: 6px; overflow-x: auto; padding: 12px 0 2px; scrollbar-width: none; }
+.reiter::-webkit-scrollbar { display: none; }
+.reiter button { flex: none; border: 1px solid var(--l); background: var(--bg); color: var(--t); border-radius: 999px; padding: 8px 14px; font: inherit; font-size: 15px; }
+.reiter button.an { background: var(--p); border-color: var(--p); color: #fff; }
+.reiter .art { font-size: 12px; opacity: .8; margin-left: 4px; }
+.datum { display: flex; align-items: center; gap: 10px; margin: 12px 0 4px; font-size: 15px; color: var(--t2); }
+.datum input { font: inherit; padding: 6px 8px; border: 1px solid var(--l); border-radius: 8px; background: var(--bg); color: var(--t); }
+h2 { font-size: 18px; margin: 22px 0 6px; }
+.hinweis { font-size: 14px; color: var(--t2); background: var(--bg); border-left: 3px solid var(--p); padding: 6px 10px; border-radius: 4px; margin: 6px 0; }
+.ue .name { font-weight: 700; font-size: 17px; }
+.ue .gruppe { font-size: 12px; color: var(--p2); font-weight: 600; margin-bottom: 2px; }
+.ue .dosis { color: var(--p); font-weight: 700; margin-top: 2px; }
+.ue .det, .ue .notiz { font-size: 14px; color: var(--t2); margin-top: 3px; }
+.ue .notiz { color: var(--t); }
+.ue details { margin-top: 8px; }
+.ue summary { color: var(--p); font-size: 14px; cursor: pointer; }
+.bilder { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px; }
+.bilder img { width: 100%; aspect-ratio: 1; object-fit: contain; background: #fff; border: 1px solid var(--l); border-radius: 8px; display: block; }
+.bilder figure { margin: 0; }
+.bilder figcaption { font-size: 12px; color: var(--t2); text-align: center; }
+.letztes { font-size: 13px; color: var(--t2); background: var(--bg2); border-radius: 8px; padding: 6px 8px; margin-top: 8px; }
+.saetze { margin-top: 10px; display: grid; gap: 6px; }
+.satz { display: grid; grid-template-columns: 58px 1fr 1fr 44px; gap: 6px; align-items: center; }
+.satz.ohnekg { grid-template-columns: 58px 1fr 44px; }
+.satz .lbl { font-size: 14px; color: var(--t2); }
+.feld { position: relative; }
+.feld input { width: 100%; font: inherit; font-size: 17px; padding: 8px 40px 8px 10px; border: 1px solid var(--l); border-radius: 8px; background: var(--bg); color: var(--t); -moz-appearance: textfield; }
+.feld input::-webkit-outer-spin-button, .feld input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.feld span { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-size: 13px; color: var(--t2); pointer-events: none; }
+.haken { width: 44px; height: 42px; border-radius: 10px; border: 2px solid var(--l); background: var(--bg); font-size: 20px; color: transparent; }
+.haken.ok { background: var(--ok); border-color: var(--ok); color: #fff; }
+.satz.erledigt input { border-color: var(--ok); }
+.bewertung { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
+.bewertung label { font-size: 13px; color: var(--t2); display: block; }
+select { width: 100%; font: inherit; font-size: 16px; padding: 8px; border: 1px solid var(--l); border-radius: 8px; background: var(--bg); color: var(--t); margin-top: 2px; }
+textarea { width: 100%; font: inherit; font-size: 16px; padding: 8px 10px; border: 1px solid var(--l); border-radius: 8px; min-height: 70px; background: var(--bg); color: var(--t); }
+.knopf { display: block; width: 100%; border: 0; border-radius: 999px; background: var(--p); color: #fff; font: inherit; font-weight: 700; font-size: 17px; padding: 14px; margin: 14px 0 6px; }
+.knopf.zweit { background: var(--bg); color: var(--p); border: 1px solid var(--p); }
+.status { font-size: 13px; color: var(--ok); text-align: center; min-height: 18px; }
+.verlauf .tag { border-top: 1px solid var(--l); padding: 8px 0; font-size: 14px; }
+.verlauf .tag:first-of-type { border-top: 0; }
+.verlauf .tag b { display: block; font-size: 15px; }
+.verlauf .tag button { float: right; border: 0; background: none; color: var(--warn); font: inherit; font-size: 13px; }
+.erkl h3 { font-size: 15px; color: var(--p); margin: 14px 0 4px; }
+.erkl p { margin: 0; font-size: 15px; }
+.erkl p + p { margin-top: 8px; }
+footer { text-align: center; font-size: 12px; color: var(--t2); margin-top: 24px; }
+.leer { text-align: center; padding: 60px 16px; color: var(--t2); }
+/* Pop-up */
+.schleier { position: fixed; inset: 0; background: rgba(10, 20, 40, .55); display: flex; align-items: flex-end; justify-content: center; z-index: 20; }
+.popup { background: var(--bg); width: 100%; max-width: 520px; border-radius: 18px 18px 0 0; padding: 20px 18px calc(20px + env(safe-area-inset-bottom)); max-height: 92vh; overflow-y: auto; }
+@media (min-width: 600px) { .schleier { align-items: center; } .popup { border-radius: 18px; } }
+.popup h2 { margin: 0 0 8px; }
+.popup ol { padding-left: 22px; margin: 10px 0; }
+.popup li { margin: 8px 0; }
+.popup .sym { display: inline-flex; vertical-align: middle; border: 1px solid var(--l); border-radius: 6px; padding: 2px 4px; }
+.popup .wichtig { background: var(--hell); border-radius: 8px; padding: 8px 10px; font-size: 14px; }
+.unten { position: sticky; bottom: 0; background: var(--hell); border-top: 1px solid var(--p); padding: 8px 16px calc(8px + env(safe-area-inset-bottom)); font-size: 14px; display: flex; gap: 10px; align-items: center; z-index: 5; }
+.unten button { margin-left: auto; border: 0; background: var(--p); color: #fff; border-radius: 999px; padding: 6px 12px; font: inherit; font-size: 14px; }
+</style>
+</head>
+<body>
+<header class="kopf"><div class="innen">
+  <img src="icon-192.png" alt="">
+  <div><div class="praxis" id="praxis">Therapie &amp; Training</div><h1 id="titel">Trainingsplan</h1><div class="fuer" id="fuer"></div></div>
+</div></header>
+<main id="app"></main>
+<div id="unten"></div>
+<noscript><p class="leer">Bitte JavaScript aktivieren, um den Trainingsplan zu sehen.</p></noscript>
+<script>
+"use strict";
+(() => {
+  // ---------------------------------------------------------------------------
+  // Grundlagen
+  // ---------------------------------------------------------------------------
+  const $ = (sel, el = document) => el.querySelector(sel);
+  const app = $("#app");
+  const NS = "tt.";
+  const speicher = {
+    ok: true,
+    get(k, standard) {
+      try { const v = localStorage.getItem(NS + k); return v === null ? standard : JSON.parse(v); }
+      catch (e) { this.ok = false; return standard; }
+    },
+    set(k, v) {
+      try { localStorage.setItem(NS + k, JSON.stringify(v)); return true; }
+      catch (e) { this.ok = false; return false; }
+    },
+  };
+  function el(tag, attrs = {}, ...kinder) {
+    const n = document.createElement(tag);
+    for (const [k, v] of Object.entries(attrs)) {
+      if (v === undefined || v === null || v === false) continue;
+      if (k === "text") n.textContent = v;
+      else if (k === "class") n.className = v;
+      else if (k.startsWith("on")) n.addEventListener(k.slice(2), v);
+      else n.setAttribute(k, v === true ? "" : v);
+    }
+    for (const k of kinder.flat()) if (k !== null && k !== undefined && k !== false) n.append(k);
+    return n;
+  }
+  const heute = () => { const d = new Date(); d.setMinutes(d.getMinutes() - d.getTimezoneOffset()); return d.toISOString().slice(0, 10); };
+  const datumText = (iso) => { const [y, m, d] = iso.split("-"); return `${d}.${m}.${y}`; };
+  const tageZwischen = (a, b) => Math.round((Date.parse(b) - Date.parse(a)) / 86400000);
+  const zahl = (x) => String(x).replace(".", ",");
+  const istStandalone = () => window.matchMedia("(display-mode: standalone)").matches || navigator.standalone === true;
+  const ua = navigator.userAgent || "";
+  const istIOS = /iPhone|iPad|iPod/.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+  const istAndroid = /Android/.test(ua);
+  const inApp = /FBAN|FBAV|Instagram|WhatsApp|Line\/|; wv\)|GSA\//.test(ua);
+  const istSafari = istIOS && /Safari\//.test(ua) && !/CriOS|FxiOS|EdgiOS|OPiOS/.test(ua) && !inApp;
+
+  // ---------------------------------------------------------------------------
+  // Plan aus dem Link (#d=…, deflate-raw + base64url) oder aus dem Speicher
+  // ---------------------------------------------------------------------------
+  async function entpacken(text) {
+    const b64 = text.replace(/-/g, "+").replace(/_/g, "/");
+    const bytes = Uint8Array.from(atob(b64), (c) => c.charCodeAt(0));
+    if (!("DecompressionStream" in window)) throw new Error("alt");
+    const strom = new Blob([bytes]).stream().pipeThrough(new DecompressionStream("deflate-raw"));
+    return JSON.parse(await new Response(strom).text());
+  }
+
+  async function planLaden() {
+    const roh = new URLSearchParams(location.hash.slice(1)).get("d");
+    if (roh) {
+      try {
+        const plan = await entpacken(roh);
+        if (plan && plan.v === 1 && plan.id) {
+          speicher.set("plan." + plan.id, plan);
+          speicher.set("letzter", plan.id);
+          return plan;
+        }
+      } catch (e) {
+        return { fehler: e.message === "alt"
+          ? "Dein Browser ist zu alt für diese Seite. Bitte aktualisiere iOS bzw. Chrome und öffne den Link erneut."
+          : "Der Link ist unvollständig. Bitte öffne ihn noch einmal direkt aus der Nachricht." };
+      }
+    }
+    const id = speicher.get("letzter", null);
+    return id ? speicher.get("plan." + id, null) : null;
+  }
+
+  // Manifest mit dem kompletten Link als Startadresse, damit das Symbol auf dem
+  // Startbildschirm genau diesen Plan öffnet (der Plan steckt im #-Teil).
+  function manifestSetzen(plan) {
+    const basis = location.href.split("#")[0];
+    const m = {
+      name: "Training · " + (plan ? plan.t : "Therapie & Training"),
+      short_name: "Training",
+      start_url: location.href,
+      scope: basis.replace(/[^/]*$/, ""),
+      display: "standalone",
+      background_color: "#ffffff",
+      theme_color: "#1A6AFF",
+      icons: [
+        { src: new URL("icon-192.png", basis).href, sizes: "192x192", type: "image/png" },
+        { src: new URL("icon-512.png", basis).href, sizes: "512x512", type: "image/png", purpose: "any maskable" },
+      ],
+    };
+    const link = el("link", { rel: "manifest", href: "data:application/manifest+json," + encodeURIComponent(JSON.stringify(m)) });
+    document.head.append(link);
+  }
+
+  // ---------------------------------------------------------------------------
+  // Tagebuch: { tage: { "datum|woche|einheit": { d, w, s, u: { "i": {n, saetze:[{kg,r,ok}], rpe, nrs} }, no } }, morgen: { datum: nrs } }
+  // ---------------------------------------------------------------------------
+  let plan, buch, zustand;
+  const buchKey = () => "tb." + plan.id;
+  const buchSpeichern = () => {
+    const ok = speicher.set(buchKey(), buch);
+    statusZeigen(ok ? "Gespeichert" : "Speichern nicht möglich (privater Modus?)", !ok);
+  };
+  let statusTimer;
+  function statusZeigen(text, fehler) {
+    const s = $("#status");
+    if (!s) return;
+    s.textContent = text;
+    s.style.color = fehler ? "var(--warn)" : "var(--ok)";
+    clearTimeout(statusTimer);
+    statusTimer = setTimeout(() => { s.textContent = ""; }, 1800);
+  }
+  const tagKey = (d, w, s) => `${d}|${w}|${s}`;
+
+  function eintrag(erzeugen) {
+    const k = tagKey(zustand.datum, zustand.woche, zustand.einheit);
+    if (!buch.tage[k] && erzeugen) buch.tage[k] = { d: zustand.datum, w: zustand.woche, s: zustand.einheit, u: {}, no: "" };
+    return buch.tage[k];
+  }
+
+  function zusammenfassung(u, ue) {
+    const s = (u.saetze || []).filter((x) => x.ok);
+    if (!s.length && !u.rpe && u.nrs === undefined) return "";
+    const zeit = ue && ue.z;
+    const kgs = [...new Set(s.map((x) => x.kg).filter((x) => x !== "" && x !== undefined && x !== null))];
+    let t = "";
+    if (s.length) {
+      const reps = s.map((x) => (x.r === "" || x.r === undefined ? "?" : x.r) + (zeit ? " s" : "")).join(", ");
+      t = kgs.length === 1 ? `${zahl(kgs[0])} kg × ${reps}` : kgs.length > 1
+        ? s.map((x) => `${zahl(x.kg || 0)} kg × ${x.r}${zeit ? " s" : ""}`).join(", ") : reps;
+      if (!zeit && !kgs.length) t += " Wdh.";
+    }
+    if (u.rpe) t += (t ? " · " : "") + "RPE " + u.rpe;
+    if (u.nrs !== undefined && u.nrs !== "") t += (t ? " · " : "") + "NRS " + u.nrs;
+    return t;
+  }
+
+  function letztesMal(name, vorDatum) {
+    let best = null;
+    for (const tag of Object.values(buch.tage)) {
+      if (tag.d >= vorDatum) continue;
+      for (const u of Object.values(tag.u || {})) {
+        if (u.n === name && (u.saetze || []).some((x) => x.ok) && (!best || tag.d > best.d)) best = { d: tag.d, u };
+      }
+    }
+    return best;
+  }
+
+  // ---------------------------------------------------------------------------
+  // Darstellung
+  // ---------------------------------------------------------------------------
+  function render() {
+    app.textContent = "";
+    if (!speicher.ok) app.append(el("div", { class: "banner warn" }, el("b", { text: "Einträge werden nicht gespeichert" }),
+      "Dein Browser erlaubt dieser Seite nicht, Daten zu speichern (z. B. im privaten Modus). Öffne den Link in einem normalen Fenster."));
+    morgenBanner();
+    const wochen = plan.w;
+    if (wochen.length > 1) {
+      app.append(el("div", { class: "reiter", role: "tablist" }, wochen.map((w, i) =>
+        el("button", { class: i === zustand.woche ? "an" : "", onclick: () => { zustand.woche = i; zustand.einheit = 0; merken(); render(); } },
+          w.k ? `Woche ${w.nr}` : "Plan", w.art ? el("span", { class: "art", text: w.art }) : null))));
+    }
+    const woche = wochen[zustand.woche] || wochen[0];
+    if (woche.e.length > 1) {
+      app.append(el("div", { class: "reiter" }, woche.e.map((e, i) =>
+        el("button", { class: i === zustand.einheit ? "an" : "", onclick: () => { zustand.einheit = i; merken(); render(); }, text: e.n }))));
+    }
+    const einheit = woche.e[zustand.einheit] || woche.e[0];
+    app.append(el("div", { class: "datum" }, "Training am",
+      el("input", { type: "date", value: zustand.datum, max: heute(), onchange: (ev) => { zustand.datum = ev.target.value || heute(); render(); } })));
+    for (const h of einheit.h || []) app.append(el("div", { class: "hinweis", text: h }));
+    einheit.u.forEach((ue, i) => app.append(uebungKarte(ue, i)));
+    const tag = eintrag(false);
+    app.append(el("div", { class: "karte" }, el("label", { text: "Notiz zum Training (optional)", style: "font-size:13px;color:var(--t2);display:block;margin-bottom:4px" }),
+      el("textarea", { placeholder: "Wie ist es gegangen? Etwas aufgefallen?", oninput: (ev) => { eintrag(true).no = ev.target.value; buchSpeichern(); } }, tag ? tag.no : "")));
+    app.append(el("div", { class: "status", id: "status" }));
+    app.append(el("button", { class: "knopf", onclick: senden, text: "An die Praxis senden" }));
+    app.append(verlauf());
+    erklaerung();
+    app.append(el("footer", {}, plan.c || "Therapie & Training", el("br"), "Deine Einträge bleiben auf diesem Gerät."));
+  }
+
+  function uebungKarte(ue, i) {
+    const tag = eintrag(false);
+    const u = tag && tag.u[i] ? tag.u[i] : null;
+    const karte = el("div", { class: "karte ue" });
+    if (ue.g) karte.append(el("div", { class: "gruppe", text: ue.g }));
+    karte.append(el("div", { class: "name", text: ue.n }), el("div", { class: "dosis", text: ue.dz }));
+    if (ue.d) karte.append(el("div", { class: "det", text: ue.d }));
+    if (ue.no) karte.append(el("div", { class: "notiz", text: ue.no }));
+    if (ue.i && plan.b && plan.b[ue.i]) {
+      const arten = plan.b[ue.i];
+      karte.append(el("details", {}, el("summary", { text: "So geht die Übung" }),
+        el("div", { class: "bilder" }, arten.map((a) => el("figure", {},
+          el("img", { src: `b/${ue.i}/${a}.jpg`, alt: `${ue.n}, ${a === "a" ? "Anfangsposition" : "Endposition"}`, loading: "lazy",
+                      onerror: (ev) => { ev.target.closest("figure").remove(); } }),
+          el("figcaption", { text: a === "a" ? "Anfangsposition" : "Endposition" }))))));
+    }
+    const vorher = letztesMal(ue.n, zustand.datum);
+    if (vorher) karte.append(el("div", { class: "letztes", text: `Letztes Mal (${datumText(vorher.d)}): ${zusammenfassung(vorher.u, ue)}` }));
+
+    const anzahl = Math.max(1, ue.s || 1);
+    const mitKg = !ue.z;
+    const vorschlagKg = (j) => {
+      if (u && u.saetze && u.saetze[j] && u.saetze[j].kg !== undefined) return u.saetze[j].kg;
+      if (ue.kg !== null && ue.kg !== undefined) return ue.kg;
+      const v = vorher && vorher.u.saetze && (vorher.u.saetze[j] || vorher.u.saetze[0]);
+      return v && v.kg !== undefined ? v.kg : "";
+    };
+    const vorschlagR = (j) => (u && u.saetze && u.saetze[j] && u.saetze[j].r !== undefined) ? u.saetze[j].r
+      : Array.isArray(ue.r) ? (ue.r[j] ?? ue.r[ue.r.length - 1] ?? "") : (ue.r ?? "");
+    const saetze = el("div", { class: "saetze" });
+    for (let j = 0; j < anzahl; j++) {
+      const s = u && u.saetze && u.saetze[j];
+      const zeile = el("div", { class: "satz" + (mitKg ? "" : " ohnekg") + (s && s.ok ? " erledigt" : "") });
+      const kg = el("input", { type: "number", inputmode: "decimal", step: "0.5", min: "0", value: vorschlagKg(j), "aria-label": `Satz ${j + 1} Gewicht` });
+      const r = el("input", { type: "number", inputmode: "numeric", min: "0", value: vorschlagR(j), placeholder: ue.rp || "", "aria-label": `Satz ${j + 1} ${ue.z ? "Sekunden" : "Wiederholungen"}` });
+      const haken = el("button", { class: "haken" + (s && s.ok ? " ok" : ""), "aria-label": `Satz ${j + 1} erledigt`, text: "✓" });
+      const sichern = (ok) => {
+        const t = eintrag(true);
+        const x = t.u[i] || (t.u[i] = { n: ue.n, saetze: [] });
+        x.n = ue.n;
+        x.saetze[j] = { kg: mitKg ? kg.value.replace(",", ".") : undefined, r: r.value, ok };
+        zeile.classList.toggle("erledigt", ok);
+        haken.classList.toggle("ok", ok);
+        buchSpeichern();
+      };
+      kg.addEventListener("input", () => sichern(true));
+      r.addEventListener("input", () => sichern(true));
+      haken.addEventListener("click", () => sichern(!haken.classList.contains("ok")));
+      zeile.append(...[el("span", { class: "lbl", text: `Satz ${j + 1}` }),
+        mitKg ? el("div", { class: "feld" }, kg, el("span", { text: "kg" })) : null,
+        el("div", { class: "feld" }, r, el("span", { text: ue.z ? "Sek." : "Wdh." })), haken].filter(Boolean));
+      saetze.append(zeile);
+    }
+    karte.append(saetze);
+    const auswahl = (wert, von, label, feld) => el("label", {}, label,
+      el("select", { onchange: (ev) => {
+        const t = eintrag(true);
+        const x = t.u[i] || (t.u[i] = { n: ue.n, saetze: [] });
+        if (ev.target.value === "") delete x[feld]; else x[feld] = ev.target.value;
+        buchSpeichern();
+      } }, el("option", { value: "", text: "–" }),
+        Array.from({ length: 11 - von }, (_, k) => k + von).map((n) => el("option", { value: String(n), text: String(n), selected: String(wert) === String(n) }))));
+    karte.append(el("div", { class: "bewertung" },
+      auswahl(u ? u.rpe : "", 1, "RPE letzter Satz", "rpe"),
+      auswahl(u ? u.nrs : "", 0, "Schmerz NRS (höchster)", "nrs")));
+    return karte;
+  }
+
+  function morgenBanner() {
+    const daten = [...new Set(Object.values(buch.tage).filter((t) => Object.keys(t.u || {}).length).map((t) => t.d))].sort();
+    const h = heute();
+    const letzter = daten.filter((d) => d < h).pop();
+    if (!letzter || tageZwischen(letzter, h) > 2 || buch.morgen[letzter] !== undefined) return;
+    if (zustand.morgenSpaeter === letzter) return;
+    const sel = el("select", {}, el("option", { value: "", text: "bitte wählen" }),
+      Array.from({ length: 11 }, (_, n) => el("option", { value: String(n), text: n === 0 ? "0 – kein Schmerz" : n === 10 ? "10 – stärkster vorstellbarer" : String(n) })));
+    app.append(el("div", { class: "banner" },
+      el("b", { text: "Wie war dein Schmerz heute Morgen?" }),
+      `Nach dem Training am ${datumText(letzter)} (NRS 0–10):`, sel,
+      el("button", { class: "knopf", style: "margin:10px 0 0;padding:10px", text: "Speichern", onclick: () => {
+        if (sel.value === "") return;
+        buch.morgen[letzter] = sel.value; buchSpeichern(); render();
+      } }),
+      el("button", { class: "knopf zweit", style: "margin:6px 0 0;padding:8px", text: "Später", onclick: () => { zustand.morgenSpaeter = letzter; render(); } })));
+  }
+
+  function verlauf() {
+    const tage = Object.entries(buch.tage).filter(([, t]) => Object.values(t.u || {}).some((u) => zusammenfassung(u)) || t.no)
+      .sort((a, b) => b[1].d.localeCompare(a[1].d));
+    const box = el("div", { class: "karte verlauf" }, el("h2", { text: "Verlauf", style: "margin-top:4px" }));
+    if (!tage.length) { box.append(el("div", { class: "letztes", text: "Noch keine Einträge. Hake erledigte Sätze mit ✓ ab, dann erscheinen sie hier." })); return box; }
+    for (const [k, t] of tage.slice(0, 30)) {
+      const w = plan.w[t.w] || plan.w[0];
+      const e = (w.e[t.s] || w.e[0]);
+      const zeilen = Object.entries(t.u || {}).map(([i, u]) => {
+        const z = zusammenfassung(u, e.u[i]);
+        return z ? `${u.n}: ${z}` : "";
+      }).filter(Boolean);
+      box.append(el("div", { class: "tag" },
+        el("button", { text: "löschen", onclick: () => { if (confirm(`Eintrag vom ${datumText(t.d)} löschen?`)) { delete buch.tage[k]; buchSpeichern(); render(); } } }),
+        el("b", { text: `${datumText(t.d)} · ${e.n}${plan.w.length > 1 ? " · Woche " + w.nr : ""}` }),
+        zeilen.map((z) => el("div", { text: z })),
+        t.no ? el("div", { text: "Notiz: " + t.no, style: "font-style:italic" }) : null,
+        buch.morgen[t.d] !== undefined ? el("div", { text: `Schmerz am Morgen danach: NRS ${buch.morgen[t.d]}` }) : null));
+    }
+    return box;
+  }
+
+  function erklaerung() {
+    if (!(plan.x || []).length && !plan.tp) return;
+    const box = el("div", { class: "karte erkl" }, el("h2", { text: "Wann ist ein Satz fertig?", style: "margin-top:4px" }));
+    for (const [h, p] of plan.x || []) { if (h) box.append(el("h3", { text: h })); box.append(el("p", { text: p })); }
+    if (plan.tp) box.append(el("h3", { text: "Tempo" }), el("p", { text: "Sekunden für Ablassen, Pause unten, Hochdrücken, Pause oben. „1-2-1-0“ heißt 1 s ablassen, 2 s unten halten, 1 s hoch, ohne Pause oben." }));
+    app.append(box);
+  }
+
+  // ---------------------------------------------------------------------------
+  // An die Praxis senden
+  // ---------------------------------------------------------------------------
+  function sendeText() {
+    const seit = speicher.get("gesendet." + plan.id, "");
+    let tage = Object.values(buch.tage).filter((t) => Object.values(t.u || {}).some((u) => zusammenfassung(u)) || t.no);
+    const neu = tage.filter((t) => !seit || t.d > seit);
+    if (neu.length) tage = neu;
+    tage.sort((a, b) => a.d.localeCompare(b.d));
+    const z = [`Trainingstagebuch${plan.n ? " · " + plan.n : ""}`, plan.t, ""];
+    for (const t of tage) {
+      const w = plan.w[t.w] || plan.w[0];
+      const e = w.e[t.s] || w.e[0];
+      z.push(`${datumText(t.d)} · ${e.n}${plan.w.length > 1 ? " (Woche " + w.nr + ")" : ""}`);
+      for (const [i, u] of Object.entries(t.u || {})) {
+        const s = zusammenfassung(u, e.u[i]);
+        if (s) z.push(`${u.n}: ${s}`);
+      }
+      if (t.no) z.push(`Notiz: ${t.no}`);
+      if (buch.morgen[t.d] !== undefined) z.push(`Schmerz am Morgen danach: NRS ${buch.morgen[t.d]}`);
+      z.push("");
+    }
+    return { text: z.join("\n").trim(), bis: tage.length ? tage[tage.length - 1].d : "" };
+  }
+
+  async function senden() {
+    const { text, bis } = sendeText();
+    if (!bis) { alert("Es gibt noch keine Einträge zum Senden."); return; }
+    const fertig = () => { speicher.set("gesendet." + plan.id, bis); statusZeigen("Zum Senden geöffnet"); };
+    if (navigator.share) {
+      try { await navigator.share({ text }); fertig(); return; }
+      catch (e) { if (e && e.name === "AbortError") return; }
+    }
+    const tel = (plan.tel || "").replace(/[^\d]/g, "");
+    location.href = (tel ? `https://wa.me/${tel}` : "https://wa.me/") + "?text=" + encodeURIComponent(text);
+    fertig();
+  }
+
+  // ---------------------------------------------------------------------------
+  // Pop-up: Zum Home-Bildschirm
+  // ---------------------------------------------------------------------------
+  let installEreignis = null;
+  window.addEventListener("beforeinstallprompt", (ev) => { ev.preventDefault(); installEreignis = ev; const k = $("#install-jetzt"); if (k) k.hidden = false; });
+
+  const SYM_TEILEN = '<svg width="18" height="22" viewBox="0 0 18 22" fill="none" stroke="#1A6AFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14V2M5 6l4-4 4 4"/><path d="M6 9H3v11h12V9h-3"/></svg>';
+  const SYM_MENU = '<svg width="6" height="20" viewBox="0 0 6 20" fill="#1A6AFF"><circle cx="3" cy="3" r="2"/><circle cx="3" cy="10" r="2"/><circle cx="3" cy="17" r="2"/></svg>';
+
+  function anleitung() {
+    const li = (html) => { const n = el("li"); n.innerHTML = html; return n; };
+    if (inApp) {
+      return [el("p", { text: "Die Seite ist gerade in einer App (z. B. WhatsApp) geöffnet. Dort kann sie nicht gespeichert werden." }),
+        el("ol", {}, istIOS
+          ? [li(`Tippe auf ${'<span class="sym">' + SYM_TEILEN + "</span>"} oder auf <b>…</b> und wähle <b>„In Safari öffnen“</b>.`), li("Dann erscheint diese Anleitung in Safari noch einmal.")]
+          : [li(`Tippe oben rechts auf ${'<span class="sym">' + SYM_MENU + "</span>"} und wähle <b>„In Chrome öffnen“</b> bzw. <b>„Im Browser öffnen“</b>.`), li("Dann erscheint diese Anleitung dort noch einmal.")])];
+    }
+    if (istIOS) {
+      return [el("ol", {}, [
+        li(`Tippe unten (bzw. oben) auf das Teilen-Symbol <span class="sym">${SYM_TEILEN}</span>.`),
+        li("Scrolle nach unten und tippe auf <b>„Zum Home-Bildschirm“</b>."),
+        li("Tippe oben rechts auf <b>„Hinzufügen“</b>."),
+        li("Schließe Safari und öffne den Trainingsplan ab jetzt über das neue Symbol <b>„Training“</b>."),
+      ]), el("div", { class: "wichtig", text: "Wichtig: Trag deine Werte erst ein, wenn du die Seite über das Symbol geöffnet hast. Einträge in Safari erscheinen dort nicht." })];
+    }
+    const knopf = el("button", { class: "knopf", id: "install-jetzt", hidden: !installEreignis, text: "Jetzt zum Startbildschirm hinzufügen",
+      onclick: async () => { if (!installEreignis) return; installEreignis.prompt(); const r = await installEreignis.userChoice; if (r.outcome === "accepted") popupZu(true); } });
+    return [knopf, el("ol", {}, [
+      li(`Tippe oben rechts auf <span class="sym">${SYM_MENU}</span>.`),
+      li("Wähle <b>„Zum Startbildschirm hinzufügen“</b> oder <b>„App installieren“</b>."),
+      li("Bestätige mit <b>„Hinzufügen“</b> bzw. <b>„Installieren“</b>."),
+      li("Öffne den Trainingsplan ab jetzt über das neue Symbol <b>„Training“</b>."),
+    ])];
+  }
+
+  function popupZu(erledigt) {
+    const s = $(".schleier");
+    if (s) s.remove();
+    if (erledigt) speicher.set("hinweis." + plan.id, "erledigt");
+    untenLeiste();
+  }
+
+  function popupZeigen() {
+    const schleier = el("div", { class: "schleier", role: "dialog", "aria-modal": "true" },
+      el("div", { class: "popup" },
+        el("h2", { text: "Speichere deinen Trainingsplan auf dem Startbildschirm" }),
+        el("p", { text: "So hast du ihn wie eine App immer griffbereit, und deine Einträge bleiben sicher gespeichert." }),
+        anleitung(),
+        inApp ? null : el("button", { class: "knopf", text: "Erledigt", onclick: () => popupZu(true) }),
+        el("button", { class: "knopf zweit", text: inApp ? "Schließen" : "Später", onclick: () => popupZu(false) })));
+    document.body.append(schleier);
+  }
+
+  function untenLeiste() {
+    const box = $("#unten");
+    box.textContent = "";
+    if (istStandalone() || speicher.get("hinweis." + plan.id, "") === "erledigt") return;
+    box.append(el("div", { class: "unten" }, istIOS && !inApp
+      ? "Einträge bitte erst über das Symbol auf dem Home-Bildschirm machen." : "Tipp: Plan auf dem Startbildschirm speichern.",
+      el("button", { text: "Anleitung", onclick: popupZeigen })));
+  }
+
+  // ---------------------------------------------------------------------------
+  // Start
+  // ---------------------------------------------------------------------------
+  function merken() { speicher.set("ansicht." + plan.id, { woche: zustand.woche, einheit: zustand.einheit }); }
+
+  async function start() {
+    const geladen = await planLaden();
+    manifestSetzen(geladen && !geladen.fehler ? geladen : null);
+    if (!geladen || geladen.fehler) {
+      app.append(el("div", { class: "leer" }, el("h2", { text: geladen ? "Plan konnte nicht geöffnet werden" : "Kein Trainingsplan geladen" }),
+        el("p", { text: geladen ? geladen.fehler : "Öffne den Link aus der Nachricht deiner Physiotherapie." })));
+      return;
+    }
+    plan = geladen;
+    document.title = `${plan.t} · Training`;
+    $("#titel").textContent = plan.t;
+    $("#fuer").textContent = plan.n ? "Für " + plan.n : "";
+    if (plan.c) $("#praxis").textContent = plan.c;
+    buch = speicher.get(buchKey(), null) || { tage: {}, morgen: {} };
+    buch.tage = buch.tage || {}; buch.morgen = buch.morgen || {};
+    const ansicht = speicher.get("ansicht." + plan.id, { woche: 0, einheit: 0 });
+    zustand = { woche: Math.min(ansicht.woche || 0, plan.w.length - 1), einheit: ansicht.einheit || 0, datum: heute() };
+    render();
+    untenLeiste();
+    if (!istStandalone() && !speicher.get("hinweis." + plan.id, "")) popupZeigen();
+    if ("serviceWorker" in navigator && location.protocol === "https:") navigator.serviceWorker.register("sw.js").catch(() => {});
+  }
+  start();
+})();
+</script>
+</body>
+</html>
