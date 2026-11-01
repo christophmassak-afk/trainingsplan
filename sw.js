@@ -1,6 +1,6 @@
 // Offline-Unterstützung für das Trainingstagebuch.
 // Seite: zuerst Netz (Updates kommen an), sonst Zwischenspeicher. Bilder und Symbole: zuerst Zwischenspeicher.
-const CACHE = "tt-tagebuch-v1";
+const CACHE = "tt-tagebuch-v2";
 const GRUND = ["./", "index.html", "icon-192.png", "icon-512.png", "apple-touch-icon.png"];
 
 self.addEventListener("install", (ev) => {
