@@ -293,7 +293,7 @@ footer { text-align: center; font-size: 12px; color: var(--t2); margin-top: 24px
       const arten = plan.b[ue.i];
       karte.append(el("details", {}, el("summary", { text: "So geht die Übung" }),
         el("div", { class: "bilder" }, arten.map((a) => el("figure", {},
-          el("img", { src: `b/${ue.i}/${a}.jpg`, alt: `${ue.n}, ${a === "a" ? "Anfangsposition" : "Endposition"}`, loading: "lazy",
+          el("img", { src: `b/${ue.i}/${a}.jpg` + (plan.bv && plan.bv[ue.i] ? `?v=${plan.bv[ue.i]}` : ""), alt: `${ue.n}, ${a === "a" ? "Anfangsposition" : "Endposition"}`, loading: "lazy",
                       onerror: (ev) => { ev.target.closest("figure").remove(); } }),
           el("figcaption", { text: a === "a" ? "Anfangsposition" : "Endposition" }))))));
     }
