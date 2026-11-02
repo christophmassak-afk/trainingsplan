@@ -223,12 +223,13 @@ footer { text-align: center; font-size: 12px; color: var(--t2); margin-top: 24px
     const s = (u.saetze || []).filter((x) => x.ok);
     if (!s.length && !u.rpe && u.nrs === undefined) return "";
     const zeit = ue && ue.z;
+    const einheit = zeit === "min" ? " min" : " s";
     const kgs = [...new Set(s.map((x) => x.kg).filter((x) => x !== "" && x !== undefined && x !== null))];
     let t = "";
     if (s.length) {
-      const reps = s.map((x) => (x.r === "" || x.r === undefined ? "?" : x.r) + (zeit ? " s" : "")).join(", ");
+      const reps = s.map((x) => (x.r === "" || x.r === undefined ? "?" : x.r) + (zeit ? einheit : "")).join(", ");
       t = kgs.length === 1 ? `${zahl(kgs[0])} kg × ${reps}` : kgs.length > 1
-        ? s.map((x) => `${zahl(x.kg || 0)} kg × ${x.r}${zeit ? " s" : ""}`).join(", ") : reps;
+        ? s.map((x) => `${zahl(x.kg || 0)} kg × ${x.r}${zeit ? einheit : ""}`).join(", ") : reps;
       if (!zeit && !kgs.length) t += " Wdh.";
     }
     if (u.rpe) t += (t ? " · " : "") + "RPE " + u.rpe;
@@ -315,7 +316,7 @@ footer { text-align: center; font-size: 12px; color: var(--t2); margin-top: 24px
       const s = u && u.saetze && u.saetze[j];
       const zeile = el("div", { class: "satz" + (mitKg ? "" : " ohnekg") + (s && s.ok ? " erledigt" : "") });
       const kg = el("input", { type: "number", inputmode: "decimal", step: "0.5", min: "0", value: vorschlagKg(j), "aria-label": `Satz ${j + 1} Gewicht` });
-      const r = el("input", { type: "number", inputmode: "numeric", min: "0", value: vorschlagR(j), placeholder: ue.rp || "", "aria-label": `Satz ${j + 1} ${ue.z ? "Sekunden" : "Wiederholungen"}` });
+      const r = el("input", { type: "number", inputmode: "numeric", min: "0", value: vorschlagR(j), placeholder: ue.rp || "", "aria-label": `Satz ${j + 1} ${ue.z === "min" ? "Minuten" : ue.z ? "Sekunden" : "Wiederholungen"}` });
       const haken = el("button", { class: "haken" + (s && s.ok ? " ok" : ""), "aria-label": `Satz ${j + 1} erledigt`, text: "✓" });
       const sichern = (ok) => {
         const t = eintrag(true);
@@ -331,7 +332,7 @@ footer { text-align: center; font-size: 12px; color: var(--t2); margin-top: 24px
       haken.addEventListener("click", () => sichern(!haken.classList.contains("ok")));
       zeile.append(...[el("span", { class: "lbl", text: `Satz ${j + 1}` }),
         mitKg ? el("div", { class: "feld" }, kg, el("span", { text: "kg" })) : null,
-        el("div", { class: "feld" }, r, el("span", { text: ue.z ? "Sek." : "Wdh." })), haken].filter(Boolean));
+        el("div", { class: "feld" }, r, el("span", { text: ue.z === "min" ? "Min." : ue.z ? "Sek." : "Wdh." })), haken].filter(Boolean));
       saetze.append(zeile);
     }
     karte.append(saetze);
